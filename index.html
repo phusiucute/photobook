@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <title>Photobook Mini</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #fdf6f0;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .frame-select {
+      margin-bottom: 20px;
+    }
+
+    .photobook {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .photo-box {
+      border: 2px dashed #ccc;
+      width: 200px;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+      background-color: #fff;
+    }
+
+    .photo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    input[type="file"] {
+      display: none;
+    }
+
+    label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #ffafcc;
+      color: #fff;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .caption {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Mini Photobook</h1>
+
+  <div class="photobook">
+    <div class="photo-box" onclick="upload(0)">
+      <img id="img0" src="" alt="" />
+    </div>
+    <div class="photo-box" onclick="upload(1)">
+      <img id="img1" src="" alt="" />
+    </div>
+    <div class="photo-box" onclick="upload(2)">
+      <img id="img2" src="" alt="" />
+    </div>
+    <div class="photo-box" onclick="upload(3)">
+      <img id="img3" src="" alt="" />
+    </div>
+  </div>
+
+  <input type="file" id="fileInput" accept="image/*" onchange="preview(event)" />
+
+  <p class="caption">Chạm vào khung để chọn ảnh (tối đa 4 ảnh)</p>
+
+  <script>
+    let currentBox = 0;
+
+    function upload(index) {
+      currentBox = index;
+      document.getElementById('fileInput').click();
+    }
+
+    function preview(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById(`img${currentBox}`).src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  </script>
+</body>
+</html>
